@@ -1,7 +1,7 @@
-S_0 = 0.9;
-I_0 = 0.1;
-ALPHA = 2;
-MU = 0.5;
+S_0 = 0.99;
+I_0 = 0.01;
+ALPHA = 1.5;
+MU = 0.6;
 PERIODS = 20;
 
 s(1) = S_0;
@@ -26,6 +26,7 @@ x = [1:PERIODS];
 plot(x, s);
 hold on
 plot(x, i);
+grid;
 
 
 function s = compute_S_at_n(prevS, prevI, a, n)
