@@ -10,9 +10,7 @@ r(1) = 0;   % recovered or died
 
 % susceptible function
 
-syms prevS;
-syms prevI;
-syms a;
+syms prevS prevI a;
 
 y_s = -a * prevS * prevI;
 vpa(y_s)
