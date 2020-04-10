@@ -8,9 +8,25 @@ s(1) = S_0; % susceptible
 i(1) = I_0; % infected
 r(1) = 0;   % recovered or died
 
+% susceptible function
+
+syms prevS;
+syms prevI;
+syms a;
+
+y_s = -a * prevS * prevI;
+vpa(y_s)
+
+% infected function
+
+syms m;
+
+y_i = a * prevS * prevI - m * prevI;
+vpa(y_i)
+
 for n = 2:PERIODS
-    deltaS = compute_S_at_n(s(n - 1), i(n - 1), ALPHA, n);
-    deltaI = compute_I_at_n(s(n - 1), i(n - 1), ALPHA, MU, n);
+    deltaS = subs(y_s, [prevS, prevI, a], [s(n - 1), i(n - 1), ALPHA]);
+    deltaI = subs(y_i, [prevS, prevI, a, m], [s(n - 1), i(n - 1), ALPHA, MU]);;
     newS = s(n - 1) + deltaS;
     
     if newS < 0
@@ -32,12 +48,3 @@ pl(3) = plot(x, r);
 h = legend(pl,'susceptible','infected','recovered or died');
 title([sprintf('SIR model\n') 'alpha: ' mat2str(ALPHA) ' mu: ' mat2str(MU)], 'fontsize', 18);
 grid;
-
-
-function s = compute_S_at_n(prevS, prevI, a, n)
-    s = -a * prevS * prevI;
-end
-
-function i = compute_I_at_n(prevS, prevI, a, m, n)
-    i = a * prevS * prevI - m * prevI;
-end
