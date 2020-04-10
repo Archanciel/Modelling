@@ -19,10 +19,11 @@ for n = 2:PERIODS
     
     s(n) = newS;
     i(n) = i(n - 1) + deltaI;
-    r(n) = S_0 - s(n) - i(n);
+    %r(n) = S_0 - s(n) - i(n);
+    r(n) = r(n-1) + MU * i(n - 1);
 end
 
-close all
+%close all
 figure;
 x = [1:PERIODS];
 pl(1) = plot(x, s);
