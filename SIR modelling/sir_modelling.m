@@ -9,8 +9,8 @@ i(1) = I_0; % infected
 r(1) = 0;   % recovered or died
 
 for n = 2:PERIODS
-    deltaS = compute_S_at_n(s(n - 1), i(n - 1), ALPHA, n);
-    deltaI = compute_I_at_n(s(n - 1), i(n - 1), ALPHA, MU, n);
+    deltaS = compute_S_at_n(s(n - 1), i(n - 1), ALPHA);
+    deltaI = compute_I_at_n(s(n - 1), i(n - 1), ALPHA, MU);
     newS = s(n - 1) + deltaS;
     
     if newS < 0
@@ -34,10 +34,10 @@ title([sprintf('SIR model\n') 'alpha: ' mat2str(ALPHA) ' mu: ' mat2str(MU)], 'fo
 grid;
 
 
-function s = compute_S_at_n(prevS, prevI, a, n)
+function s = compute_S_at_n(prevS, prevI, a)
     s = -a * prevS * prevI;
 end
 
-function i = compute_I_at_n(prevS, prevI, a, m, n)
+function i = compute_I_at_n(prevS, prevI, a, m)
     i = a * prevS * prevI - m * prevI;
 end
